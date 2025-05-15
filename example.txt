@@ -1,0 +1,61 @@
+report = {
+    "score": 87,             # Numeric score (0–100)
+    "grade": "B",            # Letter grade (A–F)
+
+    "criteria": [            # Per-criterion scores and weights
+        {
+            "name": "Schema & Types",
+            "score": 59,
+            "weight": 20
+        },
+        {
+            "name": "Descriptions & Documentation",
+            "score": 16,
+            "weight": 20
+        },
+        {
+            "name": "Paths & Operations",
+            "score": 80,
+            "weight": 15
+        },
+        {
+            "name": "Response Codes",
+            "score": 13,
+            "weight": 15
+        },
+        {
+            "name": "Examples & Samples",
+            "score": 80,
+            "weight": 10
+        },
+        {
+            "name": "Security",
+            "score": 92,
+            "weight": 10
+        },
+        {
+            "name": "Miscellaneous Best Practices",
+            "score": 11,
+            "weight": 10
+        }
+    ],
+
+    "issues": [              # All issues found in the spec
+        {
+            "path": "/users",
+            "operation": "post",
+            "location": "requestBody.content.application/json.schema",
+            "description": "Missing 'type' in request schema.",
+            "severity": "high",
+            "suggestion": "Add a 'type' field, such as 'object', to the schema."
+        },
+        {
+            "path": "/login",
+            "operation": "get",
+            "location": "responses.200.description",
+            "description": "Response description is missing.",
+            "severity": "medium",
+            "suggestion": "Provide a short description of the successful response."
+        }
+    ]
+}
