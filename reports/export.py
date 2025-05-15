@@ -6,6 +6,11 @@ def export_report(report: Dict, fmt: str, output_path: str) -> None:
     """
     Export the report dictionary to the given format and write to output_path.
     Supported formats: json, markdown, html.
+
+    Args:
+        report (Dict[str, Any]): The scoring report dictionary.
+        fmt (str): Output format, one of "json", "markdown", or "html".
+        output_path (str): File path to write the exported report.
     """
     if fmt == "json":
         with open(output_path, "w", encoding="utf-8") as f:
@@ -25,6 +30,12 @@ def export_report(report: Dict, fmt: str, output_path: str) -> None:
 def report_to_markdown(report: Dict) -> str:
     """
     Convert the report dict to a human-readable Markdown string.
+
+    Args:
+        report (Dict[str, Any]): The scoring report dictionary.
+
+    Returns:
+        str: Markdown formatted string of the report.
     """
     lines = []
     lines.append(f"# API Scoring Report\n")

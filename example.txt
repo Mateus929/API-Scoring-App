@@ -1,8 +1,8 @@
 report = {
-    "score": 87,             # Numeric score (0–100)
-    "grade": "B",            # Letter grade (A–F)
+    "score": 87,
+    "grade": "B",
 
-    "criteria": [            # Per-criterion scores and weights
+    "criteria": [
         {
             "name": "Schema & Types",
             "score": 59,
@@ -40,7 +40,7 @@ report = {
         }
     ],
 
-    "issues": [              # All issues found in the spec
+    "issues": [
         {
             "path": "/users",
             "operation": "post",
