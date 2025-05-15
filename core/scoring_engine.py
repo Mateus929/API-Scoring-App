@@ -1,6 +1,6 @@
 from typing import Any, Dict, List
 from utils.loader import load_spec
-from scoring.rules import get_all_rules
+from scoring.rules_base import get_all_rules
 
 
 class ScoringEngine:
