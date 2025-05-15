@@ -54,16 +54,3 @@ def load_spec(input_path: str) -> dict:
 
     except (OSError, requests.RequestException) as e:
         raise SpecLoadError(f"Failed to load spec: {e}")
-
-if __name__ == "__main__":
-    test_files = [
-        "../valid_openapi.yaml"
-    ]
-
-    for path in test_files:
-        print(f"\nTesting: {path}")
-        try:
-            spec = load_spec(path)
-            print(f"Success! Loaded spec keys: {list(spec.keys())}")
-        except Exception as e:
-            print(f"Error: {e}")
