@@ -1,0 +1,32 @@
+openapi: 3.0.0
+info:
+  title: Very Good API
+  version: "1.0"
+paths:
+  /users:
+    get:
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+  /users/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+    delete:
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+

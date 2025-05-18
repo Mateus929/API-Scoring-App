@@ -1,0 +1,113 @@
+openapi: 3.0.3
+info:
+  title: Poor API
+  version: 1.0.0
+servers:
+  - url: https://api.badexample.com
+paths:
+  /users:
+    get:
+      summary: Get users
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+    post:
+      summary: Add user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "201":
+          description: Created
+  /users/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get user by id
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+    put:
+      summary: Update user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Updated
+    delete:
+      summary: Delete user
+      responses:
+        "204":
+          description: Deleted
+  /products:
+    get:
+      summary: List products
+      responses:
+        "200":
+          description: OK
+  /products/{pid}:
+    parameters:
+      - name: pid
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get product
+      responses:
+        "200":
+          description: OK
+    patch:
+      summary: Patch product
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Patched
+    delete:
+      summary: Delete product
+      responses:
+        "204":
+          description: Deleted
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        price:
+          type: number
