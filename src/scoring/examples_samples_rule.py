@@ -31,12 +31,8 @@ class ExamplesSamplesRule(Rule):
                     continue
 
                 total_ops += 1
-                needs_request_check = (
-                    method_lower in self.REQUIRE_REQUEST_EXAMPLES
-                )
-                has_request_example = (
-                    not needs_request_check
-                )
+                needs_request_check = method_lower in self.REQUIRE_REQUEST_EXAMPLES
+                has_request_example = not needs_request_check
                 has_response_example = False
 
                 if needs_request_check:
@@ -47,7 +43,7 @@ class ExamplesSamplesRule(Rule):
                     )
                     if (
                         not has_request_example and content
-                    ):  # Only report if content exists
+                    ):
                         issues.append(
                             {
                                 "path": path,
@@ -61,7 +57,7 @@ class ExamplesSamplesRule(Rule):
 
                 responses = operation.get("responses", {})
                 for code, response_obj in responses.items():
-                    if not isinstance(response_obj, dict):  # Added safety check
+                    if not isinstance(response_obj, dict):
                         continue
                     content = response_obj.get("content", {})
                     if any(

@@ -5,8 +5,8 @@ help:
 	python3 -m n2t --help
 
 install: ## Install requirements
-	python -m pip install --upgrade pip
-	python -m pip install --upgrade poetry
+	python3 -m pip install --upgrade pip
+	python3 -m pip install --upgrade poetry
 	poetry install --no-root
 
 lock: ## Lock project dependencies
@@ -23,6 +23,3 @@ lint: ## Run code linters
 	poetry run ruff format src tests --check
 	poetry run ruff check  src tests
 	poetry run mypy src tests
-
-test:  ## Run tests with coverage
-	poetry run pytest --cov --last-failed --hypothesis-profile easy
