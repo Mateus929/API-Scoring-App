@@ -97,7 +97,7 @@ class PathsOperationsRule(Rule):
         issues: List[Dict[str, str]] = []
         seen_paths: Dict[str, str] = {}
         total_checks = 0
-        passed_checks = 0
+        passed_checks = 0.0
 
         for path, path_item in spec.get("paths", {}).items():
             normalized_path = self.normalize_path(path)
@@ -105,6 +105,7 @@ class PathsOperationsRule(Rule):
             total_checks += 1
             conflict_with = self.detect_path_conflicts(path, seen_paths)
             if conflict_with:
+                passed_checks += 0.5
                 issues.append(
                     {
                         "path": path,
