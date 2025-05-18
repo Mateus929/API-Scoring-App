@@ -31,18 +31,23 @@ class ExamplesSamplesRule(Rule):
                     continue
 
                 total_ops += 1
-                needs_request_check = method_lower in self.REQUIRE_REQUEST_EXAMPLES  # New logic
-                has_request_example = not needs_request_check  # Assume true if not needed
+                needs_request_check = (
+                    method_lower in self.REQUIRE_REQUEST_EXAMPLES
+                )  # New logic
+                has_request_example = (
+                    not needs_request_check
+                )  # Assume true if not needed
                 has_response_example = False
 
                 if needs_request_check:
                     request_body = operation.get("requestBody", {})
                     content = request_body.get("content", {})
                     has_request_example = any(
-                        self._has_examples(media_obj)
-                        for media_obj in content.values()
+                        self._has_examples(media_obj) for media_obj in content.values()
                     )
-                    if not has_request_example and content:  # Only report if content exists
+                    if (
+                        not has_request_example and content
+                    ):  # Only report if content exists
                         issues.append(
                             {
                                 "path": path,
@@ -59,7 +64,9 @@ class ExamplesSamplesRule(Rule):
                     if not isinstance(response_obj, dict):  # Added safety check
                         continue
                     content = response_obj.get("content", {})
-                    if any(self._has_examples(media_obj) for media_obj in content.values()):
+                    if any(
+                        self._has_examples(media_obj) for media_obj in content.values()
+                    ):
                         has_response_example = True
                         break
 
