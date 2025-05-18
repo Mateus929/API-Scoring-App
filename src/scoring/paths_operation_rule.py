@@ -119,6 +119,7 @@ class PathsOperationsRule(Rule):
                 seen_paths[normalized_path] = path
                 passed_checks += 1
 
+            total_checks += 1
             if self.contains_verb(normalized_path):
                 issues.append(
                     {

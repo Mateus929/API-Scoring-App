@@ -45,9 +45,9 @@ def report_to_markdown(report: Dict) -> str:
     lines.append(f"**Grade:** {report.get('grade', 'N/A')}\n")
 
     lines.append("## Criteria Scores")
-    criteria = report.get("criteria", {})
-    for crit, info in criteria.items():
-        lines.append(f"- **{crit}**: {info.get('score', 0)} / {info.get('weight', 0)}")
+    criteria = report.get("criteria", [])
+    for crit in criteria:
+        lines.append(f"- **{crit.get('name', 'Unnamed')}**: {crit.get('score', 0)} / 100, Weight: {crit.get('weight', 0)}")
 
     lines.append("\n## Issues")
     issues = report.get("issues", [])
