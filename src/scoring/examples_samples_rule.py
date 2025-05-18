@@ -8,6 +8,7 @@ class ExamplesSamplesRule(Rule):
     name = "Examples & Samples"
     weight = 10
     HTTP_METHODS = {"get", "post", "put", "delete", "patch"}
+    REQUIRE_REQUEST_EXAMPLES = {"post", "put", "patch"}
 
     def _has_examples(self, content_dict: Dict[str, Any]) -> bool:
         return isinstance(content_dict, dict) and (
@@ -30,30 +31,18 @@ class ExamplesSamplesRule(Rule):
                     continue
 
                 total_ops += 1
-                has_request_example = False
+                needs_request_check = method_lower in self.REQUIRE_REQUEST_EXAMPLES  # New logic
+                has_request_example = not needs_request_check  # Assume true if not needed
                 has_response_example = False
 
-                request_body = operation.get("requestBody", {})
-                content = request_body.get("content", {})
-                for media_obj in content.values():
-                    if self._has_examples(media_obj):
-                        has_request_example = True
-                        break
-
-                responses = operation.get("responses", {})
-                for response_obj in responses.values():
-                    content = response_obj.get("content", {})
-                    for media_obj in content.values():
-                        if self._has_examples(media_obj):
-                            has_response_example = True
-                            break
-                    if has_response_example:
-                        break
-
-                if has_request_example and has_response_example:
-                    passed_ops += 1
-                else:
-                    if not has_request_example and request_body:
+                if needs_request_check:
+                    request_body = operation.get("requestBody", {})
+                    content = request_body.get("content", {})
+                    has_request_example = any(
+                        self._has_examples(media_obj)
+                        for media_obj in content.values()
+                    )
+                    if not has_request_example and content:  # Only report if content exists
                         issues.append(
                             {
                                 "path": path,
@@ -64,17 +53,30 @@ class ExamplesSamplesRule(Rule):
                                 "suggestion": "Add an 'example' or 'examples' field to requestBody content",
                             }
                         )
-                    if not has_response_example and responses:
-                        issues.append(
-                            {
-                                "path": path,
-                                "operation": method.upper(),
-                                "location": f"paths.{path}.{method}.responses",
-                                "description": "Missing response example",
-                                "severity": "medium",
-                                "suggestion": "Add an 'example' or 'examples' field to response content",
-                            }
-                        )
+
+                responses = operation.get("responses", {})
+                for code, response_obj in responses.items():
+                    if not isinstance(response_obj, dict):  # Added safety check
+                        continue
+                    content = response_obj.get("content", {})
+                    if any(self._has_examples(media_obj) for media_obj in content.values()):
+                        has_response_example = True
+                        break
+
+                if not has_response_example and responses:
+                    issues.append(
+                        {
+                            "path": path,
+                            "operation": method.upper(),
+                            "location": f"paths.{path}.{method}.responses",
+                            "description": "Missing response example",
+                            "severity": "medium",
+                            "suggestion": "Add an 'example' or 'examples' field to response content",
+                        }
+                    )
+
+                if has_request_example and has_response_example:
+                    passed_ops += 1
 
         score = 0 if total_ops == 0 else round(100 * passed_ops / total_ops)
         return score, issues
