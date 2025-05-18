@@ -9,60 +9,31 @@ def rule():
 
 
 def make_spec_all_fail():
-    return {
-        "paths": {
-            "/users": {
-                "get": {
-                }
-            }
-        },
-        "components": {}
-    }
+    return {"paths": {"/users": {"get": {}}}, "components": {}}
 
 
 def make_spec_all_pass():
     return {
-        "paths": {
-            "/users": {
-                "get": {
-                    "security": [{"ApiKeyAuth": []}]
-                }
-            }
-        },
+        "paths": {"/users": {"get": {"security": [{"ApiKeyAuth": []}]}}},
         "components": {
             "securitySchemes": {
-                "ApiKeyAuth": {
-                    "type": "apiKey",
-                    "in": "header",
-                    "name": "X-API-Key"
-                }
+                "ApiKeyAuth": {"type": "apiKey", "in": "header", "name": "X-API-Key"}
             }
-        }
+        },
     }
 
 
 def make_spec_partial():
     return {
         "paths": {
-            "/users": {
-                "get": {
-                    "security": [{"ApiKeyAuth": []}]
-                }
-            },
-            "/admin": {
-                "post": {
-                }
-            }
+            "/users": {"get": {"security": [{"ApiKeyAuth": []}]}},
+            "/admin": {"post": {}},
         },
         "components": {
             "securitySchemes": {
-                "ApiKeyAuth": {
-                    "type": "apiKey",
-                    "in": "header",
-                    "name": "X-API-Key"
-                }
+                "ApiKeyAuth": {"type": "apiKey", "in": "header", "name": "X-API-Key"}
             }
-        }
+        },
     }
 
 

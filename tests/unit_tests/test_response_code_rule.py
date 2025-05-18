@@ -8,34 +8,14 @@ def rule():
 
 
 def make_spec_all_fail():
-    return {
-        "paths": {
-            "/users": {
-                "get": {}
-            }
-        }
-    }
+    return {"paths": {"/users": {"get": {}}}}
 
 
 def make_spec_all_pass():
     return {
         "paths": {
-            "/users": {
-                "get": {
-                    "responses": {
-                        "200": {},
-                        "400": {}
-                    }
-                }
-            },
-            "/users/{id}": {
-                "put": {
-                    "responses": {
-                        "204": {},
-                        "404": {}
-                    }
-                }
-            }
+            "/users": {"get": {"responses": {"200": {}, "400": {}}}},
+            "/users/{id}": {"put": {"responses": {"204": {}, "404": {}}}},
         }
     }
 
@@ -43,29 +23,9 @@ def make_spec_all_pass():
 def make_spec_partial():
     return {
         "paths": {
-            "/users": {
-                "post": {
-                    "responses": {
-                        "201": {}
-                    }
-                }
-            },
-            "/users/{id}": {
-                "delete": {
-                    "responses": {
-                        "500": {},
-                        "abc": {}
-                    }
-                }
-            },
-            "/products": {
-                "get": {
-                    "responses": {
-                        "200": {},
-                        "404": {}
-                    }
-                }
-            }
+            "/users": {"post": {"responses": {"201": {}}}},
+            "/users/{id}": {"delete": {"responses": {"500": {}, "abc": {}}}},
+            "/products": {"get": {"responses": {"200": {}, "404": {}}}},
         }
     }
 

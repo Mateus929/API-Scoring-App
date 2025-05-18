@@ -41,9 +41,7 @@ class ExamplesSamplesRule(Rule):
                     has_request_example = any(
                         self._has_examples(media_obj) for media_obj in content.values()
                     )
-                    if (
-                        not has_request_example and content
-                    ):
+                    if not has_request_example and content:
                         issues.append(
                             {
                                 "path": path,

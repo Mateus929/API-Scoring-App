@@ -14,13 +14,7 @@ def make_path_response_with_inline_schema():
             "responses": {
                 "200": {
                     "description": "desc",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object"
-                            }
-                        }
-                    },
+                    "content": {"application/json": {"schema": {"type": "object"}}},
                 }
             }
         }
@@ -35,9 +29,7 @@ def make_path_response_with_ref_schema():
                     "description": "desc",
                     "content": {
                         "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ValidSchema"
-                            }
+                            "schema": {"$ref": "#/components/schemas/ValidSchema"}
                         }
                     },
                 }
@@ -47,13 +39,7 @@ def make_path_response_with_ref_schema():
 
 
 def make_components_with_invalid_schema():
-    return {
-        "schemas": {
-            "InvalidSchema": {
-                "type": "object"
-            }
-        }
-    }
+    return {"schemas": {"InvalidSchema": {"type": "object"}}}
 
 
 def make_components_with_valid_schema():
@@ -77,11 +63,9 @@ def make_components_with_mixed_schemas():
                 "type": "object",
                 "properties": {
                     "id": {"type": "string"},
-                }
+                },
             },
-            "InvalidSchema": {
-                "type": "object"
-            }
+            "InvalidSchema": {"type": "object"},
         }
     }
 
@@ -96,9 +80,7 @@ def make_path_response_with_inline_properties():
                         "application/json": {
                             "schema": {
                                 "type": "object",
-                                "properties": {
-                                    "name": {"type": "string"}
-                                }
+                                "properties": {"name": {"type": "string"}},
                             }
                         }
                     },
@@ -110,10 +92,8 @@ def make_path_response_with_inline_properties():
 
 def test_apply_zero_score(rule):
     spec = {
-        "paths": {
-            "/test": make_path_response_with_inline_schema()
-        },
-        "components": make_components_with_invalid_schema()
+        "paths": {"/test": make_path_response_with_inline_schema()},
+        "components": make_components_with_invalid_schema(),
     }
     score, issues = rule.apply(spec)
     assert score == 0
@@ -122,10 +102,8 @@ def test_apply_zero_score(rule):
 
 def test_apply_full_score(rule):
     spec = {
-        "paths": {
-            "/test": make_path_response_with_ref_schema()
-        },
-        "components": make_components_with_valid_schema()
+        "paths": {"/test": make_path_response_with_ref_schema()},
+        "components": make_components_with_valid_schema(),
     }
     score, issues = rule.apply(spec)
     assert score == 100
@@ -134,10 +112,8 @@ def test_apply_full_score(rule):
 
 def test_apply_partial_score(rule):
     spec = {
-        "paths": {
-            "/test": make_path_response_with_inline_properties()
-        },
-        "components": make_components_with_mixed_schemas()
+        "paths": {"/test": make_path_response_with_inline_properties()},
+        "components": make_components_with_mixed_schemas(),
     }
     score, issues = rule.apply(spec)
     assert 0 < score < 100

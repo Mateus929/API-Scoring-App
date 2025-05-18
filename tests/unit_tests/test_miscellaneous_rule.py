@@ -7,54 +7,33 @@ from src.scoring.miscellaneous_rule import MiscellaneousBestPracticesRule
 def rule():
     return MiscellaneousBestPracticesRule()
 
+
 def make_spec_all_fail():
     return {
         "info": {},
         "servers": [],
-        "paths": {
-            "/path": {
-                "get": {}
-            }
-        },
-        "components": {}
+        "paths": {"/path": {"get": {}}},
+        "components": {},
     }
+
 
 def make_spec_all_pass():
     return {
-        "info": {
-            "version": "1.0.0"
-        },
-        "servers": [
-            {"url": "https://api.example.com"}
-        ],
-        "paths": {
-            "/path": {
-                "get": {
-                    "tags": ["example"]
-                }
-            }
-        },
-        "components": {
-            "schemas": {"MySchema": {"type": "object"}}
-        }
+        "info": {"version": "1.0.0"},
+        "servers": [{"url": "https://api.example.com"}],
+        "paths": {"/path": {"get": {"tags": ["example"]}}},
+        "components": {"schemas": {"MySchema": {"type": "object"}}},
     }
+
 
 def make_spec_partial():
     return {
-        "info": {
-            "version": "  "
-        },
-        "servers": [
-            {"url": "https://api.example.com"}
-        ],
-        "paths": {
-            "/path": {
-                "get": {
-                }
-            }
-        },
-        "components": {}
+        "info": {"version": "  "},
+        "servers": [{"url": "https://api.example.com"}],
+        "paths": {"/path": {"get": {}}},
+        "components": {},
     }
+
 
 def test_apply_zero_score(rule):
     spec = make_spec_all_fail()
@@ -67,11 +46,13 @@ def test_apply_zero_score(rule):
     assert "paths" in paths
     assert "components" in paths
 
+
 def test_apply_full_score(rule):
     spec = make_spec_all_pass()
     score, issues = rule.apply(spec)
     assert score == 100
     assert issues == []
+
 
 def test_apply_partial_score(rule):
     spec = make_spec_partial()

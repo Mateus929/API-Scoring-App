@@ -8,6 +8,7 @@ import pytest
 
 TEST_DIR = "test_files"
 
+
 def extract_score(path: str, export_format: str) -> Optional[int]:
     with open(path, "r", encoding="utf-8") as f:
         content = f.read()
@@ -30,10 +31,10 @@ def extract_score(path: str, export_format: str) -> Optional[int]:
     return None
 
 
-@pytest.mark.parametrize("filename", [
-    f for f in os.listdir(TEST_DIR)
-    if re.match(r"file_\d+_\d+\.(json|ya?ml)$", f)
-])
+@pytest.mark.parametrize(
+    "filename",
+    [f for f in os.listdir(TEST_DIR) if re.match(r"file_\d+_\d+\.(json|ya?ml)$", f)],
+)
 @pytest.mark.parametrize("export_format", ["json", "markdown", "html"])
 def test_score_bounds(filename: str, export_format: str) -> None:
     match = re.match(r"file_(\d+)_(\d+)\.(json|ya?ml)$", filename)
@@ -47,19 +48,25 @@ def test_score_bounds(filename: str, export_format: str) -> None:
 
     result = subprocess.run(
         [
-            "python", "-m", "src.cli",  # adjust to your CLI entry point
+            "python",
+            "-m",
+            "src.cli",  # adjust to your CLI entry point
             input_path,
-            "--export", export_format,
-            "--output", output_path
+            "--export",
+            export_format,
+            "--output",
+            output_path,
         ],
         capture_output=True,
-        text=True
+        text=True,
     )
 
     assert result.returncode == 0, f"CLI failed for {filename}:\n{result.stderr}"
     score = extract_score(output_path, export_format)
     assert score is not None, f"Score not found in report: {output_path}"
 
-    assert a <= score <= b, f"{filename}: Score {score} not in expected range [{a}, {b}]"
+    assert a <= score <= b, (
+        f"{filename}: Score {score} not in expected range [{a}, {b}]"
+    )
 
     os.remove(output_path)

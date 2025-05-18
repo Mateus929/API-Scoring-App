@@ -7,53 +7,28 @@ from src.scoring.examples_samples_rule import ExamplesSamplesRule
 def rule():
     return ExamplesSamplesRule()
 
+
 def make_response_example():
-    return {
-        "content": {
-            "application/json": {
-                "example": {"key": "value"}
-            }
-        }
-    }
+    return {"content": {"application/json": {"example": {"key": "value"}}}}
+
 
 def make_request_example():
     return {
-        "requestBody": {
-            "content": {
-                "application/json": {
-                    "example": {"param": 42}
-                }
-            }
-        },
-        "responses": {
-            "200": make_response_example()
-        }
+        "requestBody": {"content": {"application/json": {"example": {"param": 42}}}},
+        "responses": {"200": make_response_example()},
     }
+
 
 def make_request_no_example():
     return {
-        "requestBody": {
-            "content": {
-                "application/json": {
-                }
-            }
-        },
-        "responses": {
-            "200": make_response_example()
-        }
+        "requestBody": {"content": {"application/json": {}}},
+        "responses": {"200": make_response_example()},
     }
 
+
 def make_response_no_example():
-    return {
-        "responses": {
-            "200": {
-                "content": {
-                    "application/json": {
-                    }
-                }
-            }
-        }
-    }
+    return {"responses": {"200": {"content": {"application/json": {}}}}}
+
 
 def test_apply_zero_score(rule):
     spec = {
@@ -69,6 +44,7 @@ def test_apply_zero_score(rule):
     assert len(issues) == 2
     assert all(issue["severity"] == "medium" for issue in issues)
 
+
 def test_apply_full_score(rule):
     spec = {
         "paths": {
@@ -78,19 +54,18 @@ def test_apply_full_score(rule):
                     "responses": {
                         "200": {
                             "content": {
-                                "application/json": {
-                                    "example": {"result": "ok"}
-                                }
+                                "application/json": {"example": {"result": "ok"}}
                             }
                         }
                     }
-                }
+                },
             }
         }
     }
     score, issues = rule.apply(spec)
     assert score == 100
     assert issues == []
+
 
 def test_apply_partial_score(rule):
     spec = {
@@ -99,11 +74,7 @@ def test_apply_partial_score(rule):
                 "post": make_request_example(),
                 "put": make_request_no_example(),
                 "get": make_response_no_example(),
-                "delete": {
-                    "responses": {
-                        "204": {}
-                    }
-                }
+                "delete": {"responses": {"204": {}}},
             }
         }
     }

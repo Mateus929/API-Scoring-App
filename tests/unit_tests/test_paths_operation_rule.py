@@ -28,7 +28,10 @@ def test_post_with_id_not_allowed(rule):
     }
     score, issues = rule.apply(spec)
     assert score < 100
-    assert any("post should not be used with resource ids" in issue["description"].lower() for issue in issues)
+    assert any(
+        "post should not be used with resource ids" in issue["description"].lower()
+        for issue in issues
+    )
 
 
 def test_valid_paths_no_issues(rule):
@@ -43,5 +46,3 @@ def test_valid_paths_no_issues(rule):
     assert score > 85
     # as scoring penalizes even if it sees potential issues
     # so it is hard to achieve perfect score
-
-

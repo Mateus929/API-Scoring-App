@@ -11,10 +11,7 @@ def rule():
 def make_path_with_short_desc():
     return {
         "description": "TODO",
-        "get": {
-            "description": "desc",
-            "responses": {"200": {"description": "ok"}}
-        }
+        "get": {"description": "desc", "responses": {"200": {"description": "ok"}}},
     }
 
 
@@ -23,25 +20,17 @@ def make_path_with_good_desc():
         "description": "This path handles the test resource properly.",
         "post": {
             "description": "Creates a new test resource with valid data.",
-            "responses": {"201": {"description": "Created successfully"}}
-        }
+            "responses": {"201": {"description": "Created successfully"}},
+        },
     }
 
 
 def make_spec_all_fail():
-    return {
-        "paths": {
-            "/test": make_path_with_short_desc()
-        }
-    }
+    return {"paths": {"/test": make_path_with_short_desc()}}
 
 
 def make_spec_all_pass():
-    return {
-        "paths": {
-            "/test": make_path_with_good_desc()
-        }
-    }
+    return {"paths": {"/test": make_path_with_good_desc()}}
 
 
 def make_spec_partial():
