@@ -4,4 +4,7 @@
     <option name="sdkName" value="[minicondaenv]" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 (Api-Scoring-App)" project-jdk-type="Python SDK" />
+  <component name="PythonCompatibilityInspectionAdvertiser">
+    <option name="version" value="3" />
+  </component>
 </project>

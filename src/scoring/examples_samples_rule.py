@@ -33,10 +33,10 @@ class ExamplesSamplesRule(Rule):
                 total_ops += 1
                 needs_request_check = (
                     method_lower in self.REQUIRE_REQUEST_EXAMPLES
-                )  # New logic
+                )
                 has_request_example = (
                     not needs_request_check
-                )  # Assume true if not needed
+                )
                 has_response_example = False
 
                 if needs_request_check:
