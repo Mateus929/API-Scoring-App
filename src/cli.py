@@ -1,6 +1,7 @@
 import click
 from typing import Optional
-from src.main import main as run_main
+
+from src.main import main
 from src.reports.export import export_report
 
 
@@ -25,7 +26,7 @@ def cli(input_path: str, export: Optional[str], output: Optional[str]) -> None:
         output (Optional[str]): Output file path to save the exported report.
     """
     try:
-        report = run_main(input_path)
+        report = main(input_path)
         if export:
             if not output:
                 ext_map = {"json": "json", "markdown": "md", "html": "html"}

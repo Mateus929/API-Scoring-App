@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Dict, Any, List, Tuple
 
 from src.scoring.rules_base import Rule
@@ -15,7 +17,7 @@ def has_meaningful_description(obj: Dict[str, Any], min_length: int = 10) -> boo
         len(clean_desc) >= min_length
         and not clean_desc.startswith("TODO")
         and len(set(words)) > 3
-        and not all(word == words[0] for word in words)  # Check for repeated words
+        and not all(word == words[0] for word in words)
     )
 
 

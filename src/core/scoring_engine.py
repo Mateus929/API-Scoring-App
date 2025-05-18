@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 from typing import Any, Dict
 from src.utils.loader import load_spec
-from src.scoring.rules_base import get_all_rules
+from src.scoring.get_rules import get_all_rules
 
 
 class ScoringEngine:

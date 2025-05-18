@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import re
 from typing import Dict, Any, Tuple, List, Optional, Set
 from src.scoring.rules_base import Rule
