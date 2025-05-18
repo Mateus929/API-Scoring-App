@@ -11,7 +11,7 @@ class Rule(Protocol):
     name: str
     weight: float
 
-    def apply(self, spec: Dict[str, Any]) -> Tuple[float, List[Dict[str, Any]]]:
+    def apply(self, spec: Dict[str, Any]) -> Tuple[float, List[Dict[str, str]]]:
         """
         Apply the rule to the OpenAPI spec.
 

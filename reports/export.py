@@ -1,6 +1,6 @@
 import json
 from typing import Dict
-from markdown2 import markdown  # optional: convert markdown to html easily
+from markdown2 import markdown
 
 def export_report(report: Dict, fmt: str, output_path: str) -> None:
     """
