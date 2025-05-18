@@ -1,19 +1,19 @@
 import click
 from typing import Optional
-from main import main as run_main
-from reports.export import export_report
+from src.main import main as run_main
+from src.reports.export import export_report
+
 
 @click.command()
-@click.argument('input_path', type=click.Path(exists=False))
+@click.argument("input_path", type=click.Path(exists=False))
 @click.option(
-    '--export', '-e',
-    type=click.Choice(['json', 'markdown', 'html']),
-    help="Export report format"
+    "--export",
+    "-e",
+    type=click.Choice(["json", "markdown", "html"]),
+    help="Export report format",
 )
 @click.option(
-    '--output', '-o',
-    type=click.Path(),
-    help="Output file path for exported report"
+    "--output", "-o", type=click.Path(), help="Output file path for exported report"
 )
 def cli(input_path: str, export: Optional[str], output: Optional[str]) -> None:
     """
@@ -28,8 +28,8 @@ def cli(input_path: str, export: Optional[str], output: Optional[str]) -> None:
         report = run_main(input_path)
         if export:
             if not output:
-                ext_map = {'json': 'json', 'markdown': 'md', 'html': 'html'}
-                output = f'report.{ext_map[export]}'
+                ext_map = {"json": "json", "markdown": "md", "html": "html"}
+                output = f"report.{ext_map[export]}"
             export_report(report, export, output)
             click.echo(f"Report exported to: {output}")
         else:
@@ -37,5 +37,6 @@ def cli(input_path: str, export: Optional[str], output: Optional[str]) -> None:
     except Exception as e:
         click.echo(f"Error: {e}", err=True)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     cli()

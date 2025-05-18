@@ -1,6 +1,7 @@
 import json
 from typing import Dict
-from markdown2 import markdown
+from markdown2 import markdown  # type: ignore
+
 
 def export_report(report: Dict, fmt: str, output_path: str) -> None:
     """
@@ -27,6 +28,7 @@ def export_report(report: Dict, fmt: str, output_path: str) -> None:
     else:
         raise ValueError(f"Unsupported export format: {fmt}")
 
+
 def report_to_markdown(report: Dict) -> str:
     """
     Convert the report dict to a human-readable Markdown string.
@@ -38,7 +40,7 @@ def report_to_markdown(report: Dict) -> str:
         str: Markdown formatted string of the report.
     """
     lines = []
-    lines.append(f"# API Scoring Report\n")
+    lines.append("# API Scoring Report\n")
     lines.append(f"**Score:** {report.get('score', 'N/A')}  ")
     lines.append(f"**Grade:** {report.get('grade', 'N/A')}\n")
 

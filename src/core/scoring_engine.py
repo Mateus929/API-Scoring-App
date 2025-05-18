@@ -1,6 +1,6 @@
-from typing import Any, Dict, List
-from utils.loader import load_spec
-from scoring.rules_base import get_all_rules
+from typing import Any, Dict
+from src.utils.loader import load_spec
+from src.scoring.rules_base import get_all_rules
 
 
 class ScoringEngine:
@@ -20,7 +20,15 @@ class ScoringEngine:
         Returns:
             dict: The report including overall score, grade, per-rule scores, and issues.
         """
-        total_score = 0
+
+        if not self.spec:
+            return {
+                "score": "0",
+                "grade": "F",
+                "issues": [{"description": "Empty OpenAPI specification provided."}],
+            }
+
+        total_score = 0.0
         criteria = []
         issues = []
 
@@ -29,11 +37,13 @@ class ScoringEngine:
             weighted_score = rule.weight * (rule_score / 100)
             total_score += weighted_score
 
-            criteria.append({
-                "name": rule.name,
-                "score": rule_score,
-                "weight": rule.weight,
-            })
+            criteria.append(
+                {
+                    "name": rule.name,
+                    "score": rule_score,
+                    "weight": rule.weight,
+                }
+            )
             issues.extend(rule_issues)
 
         rounded_score = round(total_score, 2)
@@ -44,7 +54,7 @@ class ScoringEngine:
             "score": rounded_score,
             "grade": grade,
             "criteria": criteria,
-            "issues": issues
+            "issues": issues,
         }
 
     @staticmethod

@@ -1,11 +1,15 @@
 from typing import Dict, Any, Tuple, List
 
-from scoring.rules_base import Rule
+from src.scoring.rules_base import Rule
 
 
 def is_valid_schema(schema: Dict[str, Any]) -> Tuple[bool, str, str]:
     if not isinstance(schema, dict):
-        return False, "Schema is not a dictionary.", "Ensure the schema is a valid object."
+        return (
+            False,
+            "Schema is not a dictionary.",
+            "Ensure the schema is a valid object.",
+        )
 
     if "$ref" in schema:
         return True, "", ""
@@ -14,10 +18,18 @@ def is_valid_schema(schema: Dict[str, Any]) -> Tuple[bool, str, str]:
     valid_types = {"string", "number", "integer", "boolean", "array", "object"}
 
     if not schema_type:
-        return False, "Missing 'type' in schema.", "Add a 'type' field, such as 'object', to the schema."
+        return (
+            False,
+            "Missing 'type' in schema.",
+            "Add a 'type' field, such as 'object', to the schema.",
+        )
 
     if schema_type not in valid_types:
-        return False, f"Invalid schema type: {schema_type}.", "Use a valid type like 'object', 'array', etc."
+        return (
+            False,
+            f"Invalid schema type: {schema_type}.",
+            "Use a valid type like 'object', 'array', etc.",
+        )
 
     if schema_type == "object":
         has_props = isinstance(schema.get("properties"), dict)
@@ -29,16 +41,23 @@ def is_valid_schema(schema: Dict[str, Any]) -> Tuple[bool, str, str]:
             return True, "", ""
         if isinstance(ap, dict):
             return is_valid_schema(ap)
-        return False, "Free-form object without defined structure.", "Define 'properties' or use a valid structure."
+        return (
+            False,
+            "Free-form object without defined structure.",
+            "Define 'properties' or use a valid structure.",
+        )
 
     if schema_type == "array":
         items = schema.get("items")
         if not isinstance(items, dict):
-            return False, "Missing or invalid 'items' in array schema.", "Add an 'items' field with a valid schema."
+            return (
+                False,
+                "Missing or invalid 'items' in array schema.",
+                "Add an 'items' field with a valid schema.",
+            )
         return is_valid_schema(items)
 
     return True, "", ""
-
 
 
 def collect_schemas(spec: Dict[str, Any]) -> List[Tuple[Dict[str, Any], str, str, str]]:
@@ -82,18 +101,17 @@ class SchemaTypesRule(Rule):
             if ok:
                 valid += 1
             else:
-                issues.append({
-                    "path": path,
-                    "operation": method,
-                    "location": context,
-                    "description": description,
-                    "severity": "high",
-                    "suggestion": suggestion
-                })
+                issues.append(
+                    {
+                        "path": path,
+                        "operation": method,
+                        "location": context,
+                        "description": description,
+                        "severity": "high",
+                        "suggestion": suggestion,
+                    }
+                )
 
-        if total > 5:
-            score = round(100 * valid / total)
-        else:
-            score = 20 + round(80 * valid / total) if total else 100
+        score = round(100 * valid / total) if total else 100
 
         return score, issues

@@ -1,6 +1,6 @@
 from typing import Dict, Any
 
-from core.scoring_engine import ScoringEngine
+from src.core.scoring_engine import ScoringEngine
 
 
 def main(input_path: str) -> Dict[str, Any]:
