@@ -56,6 +56,7 @@ poetry run python -m src.cli openapi.yaml --export markdown --output report.md
 If no `--output` is specified, a default file `report.<ext>` will be created. If no `--export` is specified, program just prints overall score.
 
 **NOTE:** `openapi.yaml` doesn't exist, hence this command will not work. Use any file or link instead.
+
 ---
 
 ## Development
