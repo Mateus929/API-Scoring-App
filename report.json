@@ -1,0 +1,251 @@
+{
+  "score": 37.45,
+  "grade": "F",
+  "criteria": [
+    {
+      "name": "Schema & Types",
+      "score": 100,
+      "weight": 20
+    },
+    {
+      "name": "Descriptions & Documentation",
+      "score": 0,
+      "weight": 20
+    },
+    {
+      "name": "Paths & Operations",
+      "score": 83,
+      "weight": 15
+    },
+    {
+      "name": "Response Codes",
+      "score": 0,
+      "weight": 15
+    },
+    {
+      "name": "Examples & Samples",
+      "score": 0,
+      "weight": 10
+    },
+    {
+      "name": "Security",
+      "score": 0,
+      "weight": 10
+    },
+    {
+      "name": "Miscellaneous Best Practices",
+      "score": 50,
+      "weight": 10
+    }
+  ],
+  "issues": [
+    {
+      "path": "/2.0/users/{username}",
+      "operation": "get",
+      "location": "paths./2.0/users/{username}.get.description",
+      "description": "Missing or unhelpful operation description.",
+      "severity": "high",
+      "suggestion": "Add a meaningful description to this operation."
+    },
+    {
+      "path": "/2.0/repositories/{username}",
+      "operation": "get",
+      "location": "paths./2.0/repositories/{username}.get.description",
+      "description": "Missing or unhelpful operation description.",
+      "severity": "high",
+      "suggestion": "Add a meaningful description to this operation."
+    },
+    {
+      "path": "/2.0/repositories/{username}/{slug}",
+      "operation": "get",
+      "location": "paths./2.0/repositories/{username}/{slug}.get.description",
+      "description": "Missing or unhelpful operation description.",
+      "severity": "high",
+      "suggestion": "Add a meaningful description to this operation."
+    },
+    {
+      "path": "/2.0/repositories/{username}/{slug}/pullrequests",
+      "operation": "get",
+      "location": "paths./2.0/repositories/{username}/{slug}/pullrequests.get.description",
+      "description": "Missing or unhelpful operation description.",
+      "severity": "high",
+      "suggestion": "Add a meaningful description to this operation."
+    },
+    {
+      "path": "/2.0/repositories/{username}/{slug}/pullrequests/{pid}",
+      "operation": "get",
+      "location": "paths./2.0/repositories/{username}/{slug}/pullrequests/{pid}.get.description",
+      "description": "Missing or unhelpful operation description.",
+      "severity": "high",
+      "suggestion": "Add a meaningful description to this operation."
+    },
+    {
+      "path": "/2.0/repositories/{username}/{slug}/pullrequests/{pid}/merge",
+      "operation": "post",
+      "location": "paths./2.0/repositories/{username}/{slug}/pullrequests/{pid}/merge.post.description",
+      "description": "Missing or unhelpful operation description.",
+      "severity": "high",
+      "suggestion": "Add a meaningful description to this operation."
+    },
+    {
+      "path": "/2.0/repositories/{username}/{slug}",
+      "operation": "N/A",
+      "location": "paths",
+      "description": "Potential path conflict with '/2.0/repositories/{username}'.",
+      "severity": "medium",
+      "suggestion": "Ensure paths are distinct or consolidate similar endpoints."
+    },
+    {
+      "path": "/2.0/repositories/{username}/{slug}/pullrequests",
+      "operation": "N/A",
+      "location": "paths",
+      "description": "Potential path conflict with '/2.0/repositories/{username}'.",
+      "severity": "medium",
+      "suggestion": "Ensure paths are distinct or consolidate similar endpoints."
+    },
+    {
+      "path": "/2.0/repositories/{username}/{slug}/pullrequests/{pid}",
+      "operation": "N/A",
+      "location": "paths",
+      "description": "Potential path conflict with '/2.0/repositories/{username}'.",
+      "severity": "medium",
+      "suggestion": "Ensure paths are distinct or consolidate similar endpoints."
+    },
+    {
+      "path": "/2.0/repositories/{username}/{slug}/pullrequests/{pid}/merge",
+      "operation": "N/A",
+      "location": "paths",
+      "description": "Potential path conflict with '/2.0/repositories/{username}'.",
+      "severity": "medium",
+      "suggestion": "Ensure paths are distinct or consolidate similar endpoints."
+    },
+    {
+      "path": "/2.0/repositories/{username}/{slug}/pullrequests/{pid}/merge",
+      "operation": "post",
+      "location": "paths./2.0/repositories/{username}/{slug}/pullrequests/{pid}/merge.post",
+      "description": "POST should not be used with resource IDs (except for RPC actions).",
+      "suggestion": "Use POST on collection resources (e.g., /users) or add to allowed RPC patterns.",
+      "severity": "medium"
+    },
+    {
+      "path": "/2.0/users/{username}",
+      "operation": "get",
+      "location": "paths./2.0/users/{username}.get.responses",
+      "description": "No error (4xx or 5xx) response code defined.",
+      "severity": "medium",
+      "suggestion": "Add at least one 4xx or 5xx status code to indicate errors."
+    },
+    {
+      "path": "/2.0/repositories/{username}",
+      "operation": "get",
+      "location": "paths./2.0/repositories/{username}.get.responses",
+      "description": "No error (4xx or 5xx) response code defined.",
+      "severity": "medium",
+      "suggestion": "Add at least one 4xx or 5xx status code to indicate errors."
+    },
+    {
+      "path": "/2.0/repositories/{username}/{slug}",
+      "operation": "get",
+      "location": "paths./2.0/repositories/{username}/{slug}.get.responses",
+      "description": "No error (4xx or 5xx) response code defined.",
+      "severity": "medium",
+      "suggestion": "Add at least one 4xx or 5xx status code to indicate errors."
+    },
+    {
+      "path": "/2.0/repositories/{username}/{slug}/pullrequests",
+      "operation": "get",
+      "location": "paths./2.0/repositories/{username}/{slug}/pullrequests.get.responses",
+      "description": "No error (4xx or 5xx) response code defined.",
+      "severity": "medium",
+      "suggestion": "Add at least one 4xx or 5xx status code to indicate errors."
+    },
+    {
+      "path": "/2.0/repositories/{username}/{slug}/pullrequests/{pid}",
+      "operation": "get",
+      "location": "paths./2.0/repositories/{username}/{slug}/pullrequests/{pid}.get.responses",
+      "description": "No error (4xx or 5xx) response code defined.",
+      "severity": "medium",
+      "suggestion": "Add at least one 4xx or 5xx status code to indicate errors."
+    },
+    {
+      "path": "/2.0/repositories/{username}/{slug}/pullrequests/{pid}/merge",
+      "operation": "post",
+      "location": "paths./2.0/repositories/{username}/{slug}/pullrequests/{pid}/merge.post.responses",
+      "description": "No error (4xx or 5xx) response code defined.",
+      "severity": "medium",
+      "suggestion": "Add at least one 4xx or 5xx status code to indicate errors."
+    },
+    {
+      "path": "/2.0/users/{username}",
+      "operation": "GET",
+      "location": "paths./2.0/users/{username}.get.responses",
+      "description": "Missing response example",
+      "severity": "medium",
+      "suggestion": "Add an 'example' or 'examples' field to response content"
+    },
+    {
+      "path": "/2.0/repositories/{username}",
+      "operation": "GET",
+      "location": "paths./2.0/repositories/{username}.get.responses",
+      "description": "Missing response example",
+      "severity": "medium",
+      "suggestion": "Add an 'example' or 'examples' field to response content"
+    },
+    {
+      "path": "/2.0/repositories/{username}/{slug}",
+      "operation": "GET",
+      "location": "paths./2.0/repositories/{username}/{slug}.get.responses",
+      "description": "Missing response example",
+      "severity": "medium",
+      "suggestion": "Add an 'example' or 'examples' field to response content"
+    },
+    {
+      "path": "/2.0/repositories/{username}/{slug}/pullrequests",
+      "operation": "GET",
+      "location": "paths./2.0/repositories/{username}/{slug}/pullrequests.get.responses",
+      "description": "Missing response example",
+      "severity": "medium",
+      "suggestion": "Add an 'example' or 'examples' field to response content"
+    },
+    {
+      "path": "/2.0/repositories/{username}/{slug}/pullrequests/{pid}",
+      "operation": "GET",
+      "location": "paths./2.0/repositories/{username}/{slug}/pullrequests/{pid}.get.responses",
+      "description": "Missing response example",
+      "severity": "medium",
+      "suggestion": "Add an 'example' or 'examples' field to response content"
+    },
+    {
+      "path": "/2.0/repositories/{username}/{slug}/pullrequests/{pid}/merge",
+      "operation": "POST",
+      "location": "paths./2.0/repositories/{username}/{slug}/pullrequests/{pid}/merge.post.responses",
+      "description": "Missing response example",
+      "severity": "medium",
+      "suggestion": "Add an 'example' or 'examples' field to response content"
+    },
+    {
+      "path": "components.securitySchemes",
+      "operation": "GLOBAL",
+      "location": "components.securitySchemes",
+      "description": "No security schemes defined",
+      "severity": "high",
+      "suggestion": "Define security schemes (e.g., API key, OAuth2) under components.securitySchemes"
+    },
+    {
+      "path": "servers",
+      "operation": "GLOBAL",
+      "location": "servers",
+      "description": "No servers defined.",
+      "severity": "medium",
+      "suggestion": "Include at least one server in the 'servers' array."
+    },
+    {
+      "path": "paths",
+      "operation": "GLOBAL",
+      "location": "paths",
+      "description": "No tags used in operations.",
+      "severity": "low",
+      "suggestion": "Add tags to operations to help group and organize endpoints."
+    }
+  ]
+}

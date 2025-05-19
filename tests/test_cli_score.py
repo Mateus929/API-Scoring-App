@@ -6,7 +6,7 @@ import tempfile
 from typing import Optional
 import pytest
 
-TEST_DIR = "test_files"
+TEST_DIR = "tests/test_files"
 
 
 def extract_score(path: str, export_format: str) -> Optional[int]:
